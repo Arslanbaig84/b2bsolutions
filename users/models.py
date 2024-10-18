@@ -60,7 +60,7 @@ def create_user_profile(sender, instance, created, **kwargs):
 def send_verification_email(sender, instance, created, **kwargs):
     if created and not instance.is_active:
         # Prepare to send the email
-        domain = getattr(settings, 'SITE_DOMAIN', 'example.com')
+        domain = getattr(settings, 'SITE_DOMAIN', 'http://127.0.0.1:8000/')
         mail_subject = 'Activate your account'
         uid = urlsafe_base64_encode(force_bytes(instance.pk))
         token = account_activation_token.make_token(instance)
@@ -71,7 +71,7 @@ def send_verification_email(sender, instance, created, **kwargs):
             'domain': domain,
             'uid': uid,
             'token': token,
-            'verification_url': f'{domain}{verification_url}'
+            'verification_url': verification_url
         })
         to_email = instance.email
 
