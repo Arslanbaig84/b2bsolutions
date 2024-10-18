@@ -5,7 +5,7 @@ from django.utils.http import urlsafe_base64_decode
 from django.utils.encoding import force_str
 from .models import CustomUser
 from .tokens import account_activation_token
-from django.contrib.auth import login
+from django.contrib.auth import login, logout, authenticate
 from django.contrib import messages
 from django.urls import reverse
 
@@ -49,3 +49,24 @@ def activate(request, uidb64, token):
         messages.info(request, 'Please activate your account by visiting your email(Remember to check spam).')
         return redirect('/')
     
+
+def login_user(request):
+    if request.method == 'POST':
+        email = request.POST.get('email')
+        password = request.POST.get('password')
+        user = authenticate(request, email=email, password=password)
+        if user:
+            login(request, user)
+            messages.success(request, 'Login Successful.')
+            return redirect('/')
+        else:
+            messages(request, 'Invalid username or password')
+            return redirect('login_user')
+    
+    return render(request, 'users/login_user.html')
+
+
+def logout_user(request):
+    logout(request)
+    messages.success(request, 'Logout Successful')
+    return redirect('/')
