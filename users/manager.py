@@ -6,8 +6,6 @@ class CustomUserManager(BaseUserManager):
         email = self.normalize_email(email)
         if not email:
             raise ValueError('Email is Required')
-        if not extra_fields.get('contact'):
-            raise ValueError('Contact Info is required')
         
         extra_fields.pop('username', None) #Username not needed, email will be primary identificaion
         extra_fields.setdefault('is_active', False) #is_active will only be True when user is authenticated via email
