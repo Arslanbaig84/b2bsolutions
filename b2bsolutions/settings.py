@@ -133,3 +133,12 @@ STATICFILES_DIRS = [BASE_DIR / 'static']
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
 #STATIC_URL = 'static/'
+
+#Email settings for verification email
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'  # For Gmail
+EMAIL_USE_TLS = True
+EMAIL_PORT = 587
+EMAIL_HOST_USER = 'arslan.multiline@gmail.com'  # The email address from which emails will be sent
+EMAIL_HOST_PASSWORD = 'uniyurwiumswhehi'  # The app-specific password
+DEFAULT_FROM_EMAIL = 'arslan.multiline@gmail.com'  # Default from email address
