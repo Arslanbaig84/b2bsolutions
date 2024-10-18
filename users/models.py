@@ -10,7 +10,7 @@ class CustomUser(BaseModel, AbstractUser):
 
     USERNAME_FIELD = 'email'
 
-    objects = CustomUserManager
+    objects = CustomUserManager()
 
     groups = models.ManyToManyField(
         Group,
