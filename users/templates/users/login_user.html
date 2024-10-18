@@ -1,0 +1,20 @@
+{% extends 'base/layout.html' %}
+
+{% block title %}
+Login
+{% endblock %}
+
+{% block body %}
+    <form action="{% url 'login_user' %}" method="post">
+        {% csrf_token %}
+        <div>
+            <label for="email">Email</label>
+            <input type="email" name="email">
+        </div>
+        <div>
+            <label for="password">Password</label>
+            <input type="password" name="password">
+        </div>
+        <button type="submit">Submit</button>
+    </form>
+{% endblock %}
