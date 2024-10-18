@@ -29,6 +29,7 @@ class CustomUser(BaseModel, AbstractUser):
     
 """
 class UserProfile(models.Model):
+    user = models.OneToOneField(CustomUser, on_delete=models.Cascade, relate_name='profile')
     contact = models.CharField(max_length=30, unique=True)
     address = models.CharField(max_length=200)
     ntn = models.CharField(max_length=10, unique=True)
