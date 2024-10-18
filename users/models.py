@@ -9,8 +9,9 @@ class CustomUser(BaseModel, AbstractUser):
     email = models.EmailField(unique=True, null=False, blank=False)
 
     USERNAME_FIELD = 'email'
+    REQUIRED_FIELDS = []
 
-    objects = CustomUserManager
+    objects = CustomUserManager()
 
     groups = models.ManyToManyField(
         Group,
@@ -25,7 +26,7 @@ class CustomUser(BaseModel, AbstractUser):
 
 
     def __str__(self) -> str:
-        return f'self.email'
+        return f'{self.email}'
     
 """
 class UserProfile(models.Model):
