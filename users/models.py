@@ -10,8 +10,9 @@ from django.utils.http import urlsafe_base64_encode
 from django.utils.encoding import force_bytes
 from django.template.loader import render_to_string
 from .tokens import account_activation_token
-import random
 from django.urls import reverse
+from django.core.validators import RegexValidator, MinValueValidator, MaxValueValidator
+import datetime
 
 # Create your models here.
 class CustomUser(BaseModel, AbstractUser):
@@ -40,11 +41,22 @@ class CustomUser(BaseModel, AbstractUser):
 
 class UserProfile(models.Model):
     user = models.OneToOneField(CustomUser, on_delete=models.CASCADE, related_name='profile')
-    contact = models.CharField(max_length=30, unique=True, null=True, blank=True)
-    address = models.CharField(max_length=200)
-    ntn = models.CharField(max_length=10, unique=True, null=True, blank=True)
-
-    REQUIRED_FIELDS = ['contact']
+    business_name = models.CharField(max_length=200)
+    organization_type = models.CharField(max_length=50, choices=[('sole properietor', 'Sole Proprietor'), ('partnership', 'Partnership'), ('private limited', 'Private Limited'), ('public limited', 'Public Limited')])
+    business_type = models.CharField(max_length=50, choices=[('trader/wholeseller/distributor', 'Trader/WholeSeller/Distributor'), ('manufacturer', 'Manufacturer'), ('service organization', 'Service Organization')])
+    contact = models.CharField(max_length=20, unique=True, null=True, blank=True)
+    whatsapp = models.CharField(max_length=20)
+    address1 = models.CharField(max_length=200)
+    address2 = models.CharField(max_length=200, null=True, blank=True)
+    ntn_validator = RegexValidator(
+        regex=r'^\d{7}-\d{1}$',
+        message="NTN must be in the format '1234567-8'"
+    )
+    ntn = models.CharField(max_length=9, unique=True, validators=[ntn_validator], null=True, blank=True)
+    establishment_year = models.IntegerField(validators=[
+        MinValueValidator(1900),
+        MaxValueValidator(datetime.date.today().year)
+    ])
 
     def __str__(self):
         return self.user.email
