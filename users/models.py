@@ -38,21 +38,57 @@ class CustomUser(BaseModel, AbstractUser):
     def __str__(self) -> str:
         return f'{self.email}'
 
+INDUSTRIES = [
+    ('aerospace', 'Aerospace'),
+    ('agriculture', 'Agriculture'),
+    ('apparel/textile', 'Apparel/Textile'),
+    ('automotive', 'Automotive'),
+    ('banking', 'Banking'),
+    ('chemical_manufacturing', 'Chemical_Manufacturing'),
+    ('construction/contrating', 'Construction/Contrating'),
+    ('consulting', 'Consulting'),
+    ('consumer_goods', 'Consumer_Goods'),
+    ('defence', 'Defence'),
+    ('e_commerce', 'E_Commerce'),
+    ('education', 'Education'),
+    ('energy/oil_gas', 'Energy/Oil_Gas'),
+    ('engineering', 'Engineering'),
+    ('entertainment', 'Entertainment'),
+    ('event_management', 'Event_Management'),
+    ('food_beverages', 'Food_Beverages'),
+    ('govt/utilties', 'Govt/Utilities'),
+    ('healthcare/pharma', 'Healthcare/Pharma'),
+    ('heavy_equipment', 'Heavy_Equipment'),
+    ('it/software/ai', 'IT/Software/AI'),
+    ('journalism', 'Journalism'),
+    ('legal_services', 'Legal_Services'),
+    ('logistic', 'Logistic'),
+    ('mining', 'Mining'),
+    ('real_estate', 'Real_Estate'),
+    ('retail', 'Retail'),
+    ('sports', 'Sports'),
+    ('telecom', 'Telecom'),
+    ('tourism', 'Tourism'),
+    ('other', 'Other')
+              ]
 
 class UserProfile(models.Model):
     user = models.OneToOneField(CustomUser, on_delete=models.CASCADE, related_name='profile')
     business_name = models.CharField(max_length=200)
     organization_type = models.CharField(max_length=50, choices=[('sole properietor', 'Sole Proprietor'), ('partnership', 'Partnership'), ('private limited', 'Private Limited'), ('public limited', 'Public Limited')])
     business_type = models.CharField(max_length=50, choices=[('trader/wholeseller/distributor', 'Trader/WholeSeller/Distributor'), ('manufacturer', 'Manufacturer'), ('service organization', 'Service Organization')])
-    contact = models.CharField(max_length=20, unique=True, null=True, blank=True)
-    whatsapp = models.CharField(max_length=20)
-    address1 = models.CharField(max_length=200)
-    address2 = models.CharField(max_length=200, null=True, blank=True)
+    no_of_employees = models.PositiveIntegerField(choices=[('1-10', '1-10'), ('11-25', '11-25'), ('26-50', '26-50'), ('50-100', '50-100'), ('100-500', '100-500'), ('500+', '500+')])
+    industry_type = models.CharField(max_length=100, choices=INDUSTRIES)
     ntn_validator = RegexValidator(
         regex=r'^\d{7}-\d{1}$',
         message="NTN must be in the format '1234567-8'"
     )
     ntn = models.CharField(max_length=9, unique=True, validators=[ntn_validator], null=True, blank=True)
+    contact = models.CharField(max_length=20, unique=True, null=True, blank=True)
+    whatsapp = models.CharField(max_length=20)
+    website = models.URLField(null=True, blank=True)
+    address1 = models.CharField(max_length=200, null=True, blank=True)
+    address2 = models.CharField(max_length=200, null=True, blank=True)
     establishment_year = models.IntegerField(validators=[
         MinValueValidator(1900),
         MaxValueValidator(datetime.date.today().year)
