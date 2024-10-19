@@ -1,3 +1,4 @@
+"""
 from django.conf import settings
 from django.db.models.signals import post_save
 from django.dispatch import receiver
@@ -37,3 +38,4 @@ def send_verification_email(sender, instance, created, **kwargs):
         )
         email.attach_alternative(message, "text/html")  # Specify that this is an HTML message
         email.send()
+"""
