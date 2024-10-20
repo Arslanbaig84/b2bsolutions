@@ -73,8 +73,8 @@ def logout_user(request):
 
 
 def userprofile(request):
-    form = UserProfileForm()
-    return render(request, 'users/userprofile.html', {'form':form})
+    profile = request.user.profile
+    return render(request, 'users/userprofile.html', {'profile':profile})
 
 """
 Industries = [
