@@ -1,8 +1,10 @@
 {% extends 'base/layout.html' %}
 {% block title %}
-Create User Profile
+User Profile
 {% endblock %}
 {% block body %}
 <hr>
 {{profile}}
+<hr>
+<a href="{% url 'edit_profile' %}">Edit Profile</a>
 {% endblock %}

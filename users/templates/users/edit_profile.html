@@ -1,0 +1,12 @@
+{% extends 'base/layout.html' %}
+{% block title %}
+Edit Profile
+{% endblock %}
+{% block body %}
+<hr>
+<form action="{% url 'edit_profile' %}" method="post">
+    {% csrf_token %}
+    {{form.as_p}}
+    <button type="submit">Submit</button>
+</form>
+{% endblock %}

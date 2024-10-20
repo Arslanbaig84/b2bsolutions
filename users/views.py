@@ -76,6 +76,18 @@ def userprofile(request):
     profile = request.user.profile
     return render(request, 'users/userprofile.html', {'profile':profile})
 
+
+def edit_profile(request):
+    profile = request.user.profile
+    if request.method == 'POST':
+        form = UserProfileForm(request.POST, instance=profile)
+        if form.is_valid():
+            form.save()
+            return redirect('userprofile')
+    
+    form = UserProfileForm(instance=profile)
+    return render(request, 'users/edit_profile.html', {'form':form})
+
 """
 Industries = [
     'Aerospace', 'Agriculture', 'Apparel/Textile', 'Automotive', 'Banking', 'Chemical_Manufacturing', 'Construction/Contrating', 'Consulting', 'Consumer_Goods',
