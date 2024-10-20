@@ -48,24 +48,27 @@ class Industry(models.Model):
 class UserProfile(models.Model):
     user = models.OneToOneField(CustomUser, on_delete=models.CASCADE, related_name='profile')
     business_name = models.CharField(max_length=200, null=True, blank=True)
-    organization_type = models.CharField(max_length=50, choices=[('sole properietor', 'Sole Proprietor'), ('partnership', 'Partnership'), ('private limited', 'Private Limited'), ('public limited', 'Public Limited')])
-    business_type = models.CharField(max_length=50, choices=[('trader/wholeseller/distributor', 'Trader/WholeSeller/Distributor'), ('manufacturer', 'Manufacturer'), ('service organization', 'Service Organization')])
-    no_of_employees = models.PositiveIntegerField(choices=[(1, '1-10'), (11, '11-25'), (26, '26-50'), (51, '50-100'), (101, '100-500'), (501, '500+')])
-    industry_type = models.ManyToManyField(Industry, related_name='user_profiles')
+    organization_type = models.CharField(max_length=50, null=True, blank=True,
+                                         choices=[('sole properietor', 'Sole Proprietor'), ('partnership', 'Partnership'), ('private limited', 'Private Limited'), ('public limited', 'Public Limited')])
+    business_type = models.CharField(max_length=50, null=True, blank=True, 
+                                     choices=[('trader/wholeseller/distributor', 'Trader/WholeSeller/Distributor'), ('manufacturer', 'Manufacturer'), ('service organization', 'Service Organization')])
+    no_of_employees = models.PositiveIntegerField(null=True, blank=True, 
+                                                choices=[(1, '1-10'), (11, '11-25'), (26, '26-50'), (51, '50-100'), (101, '100-500'), (501, '500+')])
+    industry_type = models.ManyToManyField(Industry, related_name='user_profiles', blank=True)
     ntn_validator = RegexValidator(
         regex=r'^\d{7}-\d{1}$',
         message="NTN must be in the format '1234567-8'"
     )
     ntn = models.CharField(max_length=9, unique=True, validators=[ntn_validator], null=True, blank=True)
     contact = models.CharField(max_length=20, unique=True, null=True, blank=True)
-    whatsapp = models.CharField(max_length=20)
+    whatsapp = models.CharField(max_length=20, null=True, blank=True)
     website = models.URLField(null=True, blank=True)
     address1 = models.CharField(max_length=200, null=True, blank=True)
     address2 = models.CharField(max_length=200, null=True, blank=True)
     establishment_year = models.IntegerField(validators=[
         MinValueValidator(1900),
         MaxValueValidator(datetime.date.today().year)
-    ])
+    ], null=True, blank=True)
 
     def __str__(self):
         return self.user.email
