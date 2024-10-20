@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect, HttpResponse
-from .forms import CustomUserForm
+from .forms import CustomUserForm, UserProfileForm
 from django.contrib.auth.decorators import login_required
 from django.utils.http import urlsafe_base64_decode
 from django.utils.encoding import force_str
@@ -71,9 +71,16 @@ def logout_user(request):
     messages.success(request, 'Logout Successful')
     return redirect('/')
 
+
+def userprofile(request):
+    form = UserProfileForm()
+    return render(request, 'users/userprofile.html', {'form':form})
+
+"""
 Industries = [
     'Aerospace', 'Agriculture', 'Apparel/Textile', 'Automotive', 'Banking', 'Chemical_Manufacturing', 'Construction/Contrating', 'Consulting', 'Consumer_Goods',
     'Defence', 'E_Commerce', 'Education', 'Energy/Oil_Gas', 'Engineering', 'Entertainment', 'Event_Management', 'Food_Beverages', 'Govt/Utilities',
     'Healthcare/Pharma', 'Heavy_Equipment', 'IT/Software/AI', 'Journalism', 'Legal_Services', 'Logistic/Transport', 'Mining', 'Real_Estate', 'Retail', 'Sports', 
     'Telecom', 'Tourism', 'Other'
     ]
+"""
