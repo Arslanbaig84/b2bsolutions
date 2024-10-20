@@ -71,36 +71,9 @@ def logout_user(request):
     messages.success(request, 'Logout Successful')
     return redirect('/')
 
-INDUSTRIES = [
-    ('aerospace', 'Aerospace'),
-    ('agriculture', 'Agriculture'),
-    ('apparel/textile', 'Apparel/Textile'),
-    ('automotive', 'Automotive'),
-    ('banking', 'Banking'),
-    ('chemical_manufacturing', 'Chemical_Manufacturing'),
-    ('construction/contrating', 'Construction/Contrating'),
-    ('consulting', 'Consulting'),
-    ('consumer_goods', 'Consumer_Goods'),
-    ('defence', 'Defence'),
-    ('e_commerce', 'E_Commerce'),
-    ('education', 'Education'),
-    ('energy/oil_gas', 'Energy/Oil_Gas'),
-    ('engineering', 'Engineering'),
-    ('entertainment', 'Entertainment'),
-    ('event_management', 'Event_Management'),
-    ('food_beverages', 'Food_Beverages'),
-    ('govt/utilties', 'Govt/Utilities'),
-    ('healthcare/pharma', 'Healthcare/Pharma'),
-    ('heavy_equipment', 'Heavy_Equipment'),
-    ('it/software/ai', 'IT/Software/AI'),
-    ('journalism', 'Journalism'),
-    ('legal_services', 'Legal_Services'),
-    ('logistic', 'Logistic'),
-    ('mining', 'Mining'),
-    ('real_estate', 'Real_Estate'),
-    ('retail', 'Retail'),
-    ('sports', 'Sports'),
-    ('telecom', 'Telecom'),
-    ('tourism', 'Tourism'),
-    ('other', 'Other')
-              ]
+Industries = [
+    'Aerospace', 'Agriculture', 'Apparel/Textile', 'Automotive', 'Banking', 'Chemical_Manufacturing', 'Construction/Contrating', 'Consulting', 'Consumer_Goods',
+    'Defence', 'E_Commerce', 'Education', 'Energy/Oil_Gas', 'Engineering', 'Entertainment', 'Event_Management', 'Food_Beverages', 'Govt/Utilities',
+    'Healthcare/Pharma', 'Heavy_Equipment', 'IT/Software/AI', 'Journalism', 'Legal_Services', 'Logistic/Transport', 'Mining', 'Real_Estate', 'Retail', 'Sports', 
+    'Telecom', 'Tourism', 'Other'
+    ]
