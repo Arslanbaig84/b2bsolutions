@@ -74,11 +74,11 @@ INDUSTRIES = [
 
 class UserProfile(models.Model):
     user = models.OneToOneField(CustomUser, on_delete=models.CASCADE, related_name='profile')
-    business_name = models.CharField(max_length=200)
+    business_name = models.CharField(max_length=200, null=True, blank=True)
     organization_type = models.CharField(max_length=50, choices=[('sole properietor', 'Sole Proprietor'), ('partnership', 'Partnership'), ('private limited', 'Private Limited'), ('public limited', 'Public Limited')])
     business_type = models.CharField(max_length=50, choices=[('trader/wholeseller/distributor', 'Trader/WholeSeller/Distributor'), ('manufacturer', 'Manufacturer'), ('service organization', 'Service Organization')])
     no_of_employees = models.PositiveIntegerField(choices=[('1-10', '1-10'), ('11-25', '11-25'), ('26-50', '26-50'), ('50-100', '50-100'), ('100-500', '100-500'), ('500+', '500+')])
-    industry_type = models.CharField(max_length=100, choices=INDUSTRIES)
+    industry_type = models.TextField()
     ntn_validator = RegexValidator(
         regex=r'^\d{7}-\d{1}$',
         message="NTN must be in the format '1234567-8'"
