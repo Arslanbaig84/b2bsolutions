@@ -90,22 +90,12 @@ def edit_profile(request):
     return render(request, 'users/edit_profile.html', {'form':form})
 
 
-INDUSTRIES = [
-    'Aerospace', 'Agriculture', 'Apparel/Textile', 'Automotive', 'Banking', 'Chemical_Manufacturing', 'Construction/Contrating', 'Consulting', 'Consumer_Goods',
-    'Defence', 'E_Commerce', 'Education', 'Energy/Oil_Gas', 'Engineering', 'Entertainment', 'Event_Management', 'Food_Beverages', 'Govt/Utilities',
-    'Healthcare/Pharma', 'Heavy_Equipment', 'IT/Software/AI', 'Journalism', 'Legal_Services', 'Logistic/Transport', 'Mining', 'Real_Estate', 'Retail', 'Sports', 
-    'Telecom', 'Tourism', 'Other'
-    ]
-BUSINESS_TYPES = ['Trader/WholeSeller/Distributor', 'Manufacturer', 'Service Organization']
-
 def users(request):
 
     users = UserProfile.objects.all()
     # ToDo user should be able to browse users via the insdustry they work in of type of business the run
     if request.method == 'POST':
         business_type = request.POST.get('business_type')
-        print(business_type)
-
         industry_type = request.POST.get('industry_type')
 
         if business_type and industry_type:
@@ -115,9 +105,6 @@ def users(request):
         elif industry_type:
             users = UserProfile.objects.filter(industry_type=industry_type)
 
-    for user in users:
-        print(user)
-
     industries = Industry.objects.all()
     businesses = [choice[0] for choice in UserProfile._meta.get_field('business_type').choices]
 
@@ -126,3 +113,12 @@ def users(request):
         'industries': industries,
         'businesses': businesses
     })
+"""
+INDUSTRIES = [
+    'Aerospace', 'Agriculture', 'Apparel/Textile', 'Automotive', 'Banking', 'Chemical_Manufacturing', 'Construction/Contrating', 'Consulting', 'Consumer_Goods',
+    'Defence', 'E_Commerce', 'Education', 'Energy/Oil_Gas', 'Engineering', 'Entertainment', 'Event_Management', 'Food_Beverages', 'Govt/Utilities',
+    'Healthcare/Pharma', 'Heavy_Equipment', 'IT/Software/AI', 'Journalism', 'Legal_Services', 'Logistic/Transport', 'Mining', 'Real_Estate', 'Retail', 'Sports', 
+    'Telecom', 'Tourism', 'Other'
+    ]
+BUSINESS_TYPES = ['Trader/WholeSeller/Distributor', 'Manufacturer', 'Service Organization']
+"""
