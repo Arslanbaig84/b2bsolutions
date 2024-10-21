@@ -5,7 +5,7 @@ User List
 {% endblock %}
 
 {% block body %}
-
+<hr>
 <form action="{% url 'users' %}" method="post" style="display: inline-flex">
     {% csrf_token %}
     <div style="flex-wrap: wrap;">
