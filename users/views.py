@@ -3,11 +3,12 @@ from .forms import CustomUserForm, UserProfileForm
 from django.contrib.auth.decorators import login_required
 from django.utils.http import urlsafe_base64_decode
 from django.utils.encoding import force_str
-from .models import CustomUser
+from .models import CustomUser, UserProfile, Industry
 from .tokens import account_activation_token
 from django.contrib.auth import login, logout, authenticate
 from django.contrib import messages
 from django.urls import reverse
+from django.db.models import Q
 
 
 # Create your views here.
@@ -89,16 +90,39 @@ def edit_profile(request):
     return render(request, 'users/edit_profile.html', {'form':form})
 
 
-def users(request):
-    # ToDo user should be able to browse users via the insdustry they work in of type of business the run
-    users = CustomUser.objects.all()
-    return render(request, 'users/users.html', {'users':users})
-
-"""
-Industries = [
+INDUSTRIES = [
     'Aerospace', 'Agriculture', 'Apparel/Textile', 'Automotive', 'Banking', 'Chemical_Manufacturing', 'Construction/Contrating', 'Consulting', 'Consumer_Goods',
     'Defence', 'E_Commerce', 'Education', 'Energy/Oil_Gas', 'Engineering', 'Entertainment', 'Event_Management', 'Food_Beverages', 'Govt/Utilities',
     'Healthcare/Pharma', 'Heavy_Equipment', 'IT/Software/AI', 'Journalism', 'Legal_Services', 'Logistic/Transport', 'Mining', 'Real_Estate', 'Retail', 'Sports', 
     'Telecom', 'Tourism', 'Other'
     ]
-"""
+BUSINESS_TYPES = ['Trader/WholeSeller/Distributor', 'Manufacturer', 'Service Organization']
+
+def users(request):
+
+    users = UserProfile.objects.all()
+    # ToDo user should be able to browse users via the insdustry they work in of type of business the run
+    if request.method == 'POST':
+        business_type = request.POST.get('business_type')
+        print(business_type)
+
+        industry_type = request.POST.get('industry_type')
+
+        if business_type and industry_type:
+            users = UserProfile.objects.filter(Q(business_type=business_type) & Q(industry_type=industry_type))
+        elif business_type:
+            users = UserProfile.objects.filter(business_type=business_type)
+        elif industry_type:
+            users = UserProfile.objects.filter(industry_type=industry_type)
+
+    for user in users:
+        print(user)
+
+    industries = Industry.objects.all()
+    businesses = [choice[0] for choice in UserProfile._meta.get_field('business_type').choices]
+
+    return render(request, 'users/users.html', {
+        'users': users,
+        'industries': industries,
+        'businesses': businesses
+    })

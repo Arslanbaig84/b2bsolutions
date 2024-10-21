@@ -1,21 +1,44 @@
 {% extends 'base/layout.html' %}
+
 {% block title %}
 User List
 {% endblock %}
 
 {% block body %}
-<!-- ToDo user should be able to browse and search through other users -->
-    <form action="">
-        <div>
-            <label for="">business_type</label>
-            <input type="text">
-        </div>
-    </form>
-    <hr>
-    {% for user in users %}
-        {{user}}
-        <br>
-        {{user.profile.business_name}}
-        <hr>
+
+<form action="{% url 'users' %}" method="post" style="display: inline-flex">
+    {% csrf_token %}
+    <div style="flex-wrap: wrap;">
+        <label for="business_type">Business Type</label>
+        <select name="business_type" id="business_type">
+            <option value="" selected disabled>Select Business Type</option>
+            {% for business in businesses %}
+                <option value="{{ business }}">{{ business }}</option>
+            {% endfor %}
+        </select>
+    </div>
+    <div style="flex-wrap: wrap; width: 100px;"></div>
+    <div style="flex-wrap: wrap;">
+        <label for="industry_type">Industry</label>
+        <select name="industry_type" id="industry_type">
+            <option value="" selected disabled>Select Industry</option>
+            {% for industry in industries %}
+                <option value="{{ industry.id }}">{{ industry.name }}</option>
+            {% endfor %}
+        </select>
+    </div>
+    <div style="flex-wrap: wrap; width: 100px;"></div>
+    <button type="submit">Submit</button>
+</form>
+<hr>
+{% for user in users %}
+    {{ user.user.email }} <br>
+    {{ user.business_name }} <br>
+    Industries: 
+    {% for industry in user.industry_type.all %}
+        {{ industry.name }},
     {% endfor %}
+    <hr>
+{% endfor %}
+
 {% endblock %}
