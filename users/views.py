@@ -90,6 +90,7 @@ def edit_profile(request):
 
 
 def users(request):
+    # ToDo user should be able to browse users via the insdustry they work in of type of business the run
     users = CustomUser.objects.all()
     return render(request, 'users/users.html', {'users':users})
 
