@@ -4,6 +4,13 @@ User List
 {% endblock %}
 
 {% block body %}
+<!-- ToDo user should be able to browse and search through other users -->
+    <form action="">
+        <div>
+            <label for="">business_type</label>
+            <input type="text">
+        </div>
+    </form>
     {% for user in users %}
         {{user}}
         <br>
