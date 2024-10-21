@@ -1,0 +1,13 @@
+{% extends 'base/layout.html' %}
+{% block title %}
+User List
+{% endblock %}
+
+{% block body %}
+    {% for user in users %}
+        {{user}}
+        <br>
+        {{user.profile.business_name}}
+        <hr>
+    {% endfor %}
+{% endblock %}
