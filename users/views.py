@@ -88,6 +88,11 @@ def edit_profile(request):
     form = UserProfileForm(instance=profile)
     return render(request, 'users/edit_profile.html', {'form':form})
 
+
+def users(request):
+    users = CustomUser.objects.all()
+    return render(request, 'users/users.html', {'users':users})
+
 """
 Industries = [
     'Aerospace', 'Agriculture', 'Apparel/Textile', 'Automotive', 'Banking', 'Chemical_Manufacturing', 'Construction/Contrating', 'Consulting', 'Consumer_Goods',
