@@ -89,16 +89,24 @@ def edit_profile(request):
     return render(request, 'users/edit_profile.html', {'form':form})
 
 
-def users(request):
-    # ToDo user should be able to browse users via the insdustry they work in of type of business the run
-    users = CustomUser.objects.all()
-    return render(request, 'users/users.html', {'users':users})
-
-"""
-Industries = [
+INDUSTRIES = [
     'Aerospace', 'Agriculture', 'Apparel/Textile', 'Automotive', 'Banking', 'Chemical_Manufacturing', 'Construction/Contrating', 'Consulting', 'Consumer_Goods',
     'Defence', 'E_Commerce', 'Education', 'Energy/Oil_Gas', 'Engineering', 'Entertainment', 'Event_Management', 'Food_Beverages', 'Govt/Utilities',
     'Healthcare/Pharma', 'Heavy_Equipment', 'IT/Software/AI', 'Journalism', 'Legal_Services', 'Logistic/Transport', 'Mining', 'Real_Estate', 'Retail', 'Sports', 
     'Telecom', 'Tourism', 'Other'
     ]
-"""
+BUSINESS_TYPES = ['Trader/WholeSeller/Distributor', 'Manufacturer', 'Service Organization']
+
+def users(request):
+    # ToDo user should be able to browse users via the insdustry they work in of type of business the run
+    industries = []
+    for INDUSTRY in INDUSTRIES:
+        industries.append(INDUSTRY.lower())
+    businesses = []
+    for BUSINESS_TYPE in BUSINESS_TYPES:
+        businesses.append(BUSINESS_TYPE.lower())
+
+    users = CustomUser.objects.all()
+    return render(request, 'users/users.html', {'users':users, 'industries': industries, 'businesses':businesses})
+
+
