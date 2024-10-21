@@ -26,9 +26,18 @@
                 <li class="nav-item">
                 <a class="nav-link active" aria-current="page" href="/">Home</a>
                 </li>
-                <li class="nav-item">
-                <a class="nav-link" href="{% url 'login_user' %}">Login</a>
-                </li>
+                {% if user.is_authenticated %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'logout_user' %}">Logout</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'userprofile' %}">Profile</a>
+                    </li>
+                {% else %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'login_user' %}">Login</a>
+                    </li>
+                {% endif %}
                 <li class="nav-item">
                 <a class="nav-link" href="#">Pricing</a>
                 </li>
