@@ -11,6 +11,7 @@ class Product(BaseModel):
     user = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name='products')
     industry = models.ManyToManyField(Industry, related_name='industry_products')
     product_name = models.CharField(max_length=100)
+    product_brand = models.CharField(max_length=100)
     product_model = models.CharField(max_length=100)
     manufacturing_year = models.PositiveIntegerField(validators=[
         MinValueValidator(1960),
