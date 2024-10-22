@@ -1,0 +1,18 @@
+{% extends 'base/layout.html' %}
+{% block title %}
+Products
+{% endblock %}
+
+{% block body %}
+    <hr>
+    {% if products %}
+        {% for product in products %}
+            {{product.product_name}}
+            <hr>
+        {% endfor %}
+    {% else %}
+        <h1>No Products to Display</h1>
+    {% endif %}
+    
+    <a href="{% url 'product_form' %}">New Product Ad</a>
+{% endblock %}

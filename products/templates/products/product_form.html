@@ -1,0 +1,12 @@
+{% extends 'base/layout.html' %}
+{% block title %}
+New Product Ad
+{% endblock %}
+
+{% block body %}
+    <form action="{% url 'product_form' %}" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{form.as_p}}
+        <button type="submit">Submit</button>
+    </form>
+{% endblock %}
