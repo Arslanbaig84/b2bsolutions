@@ -24,3 +24,9 @@ def product_form(request):
 def products(request):
     products = Product.objects.all()
     return render(request, 'products/products.html', {'products':products})
+
+
+def product(request, uid):
+#    uid = uid.split(':')[1]
+    product = Product.objects.get(uid = uid)
+    return render(request, 'products/product.html', {'product':product})

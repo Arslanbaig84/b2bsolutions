@@ -7,7 +7,9 @@ Products
     <hr>
     {% if products %}
         {% for product in products %}
-            {{product.product_name}}
+            <a href="{% url 'product' product.uid %}">
+                {{product.product_name}}
+            </a>
             <hr>
         {% endfor %}
     {% else %}
