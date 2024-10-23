@@ -1,0 +1,17 @@
+{% extends 'base/layout.html' %}
+
+{% block title %}
+{{user.uid}}
+{% endblock %}
+
+{% block body %}
+<hr>
+    {{ user.profile.business_name }} <br>
+    {{ user.email }} <br>
+    Industries: 
+    {% for industry in industries %}
+        {{ industry.name }},
+    {% endfor %}
+    <hr>
+
+{% endblock %}

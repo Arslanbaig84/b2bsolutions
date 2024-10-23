@@ -113,6 +113,12 @@ def users(request):
         'industries': industries,
         'businesses': businesses
     })
+
+
+def user(request, uid):
+    user = CustomUser.objects.get(uid = uid)
+    industries = user.profile.industry_type.all()
+    return render(request, 'users/user.html', {'user':user, 'industries':industries})
 """
 INDUSTRIES = [
     'Aerospace', 'Agriculture', 'Apparel/Textile', 'Automotive', 'Banking', 'Chemical_Manufacturing', 'Construction/Contrating', 'Consulting', 'Consumer_Goods',
