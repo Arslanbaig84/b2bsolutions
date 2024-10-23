@@ -92,20 +92,20 @@ def edit_profile(request):
 
 def users(request):
 
-    users = UserProfile.objects.all()
+    users = UserProfile.objects.all().order_by('business_name')
     # ToDo user should be able to browse users via the insdustry they work in of type of business the run
     if request.method == 'POST':
         business_type = request.POST.get('business_type')
         industry_type = request.POST.get('industry_type')
 
         if business_type and industry_type:
-            users = UserProfile.objects.filter(Q(business_type=business_type) & Q(industry_type=industry_type))
+            users = UserProfile.objects.filter(Q(business_type=business_type) & Q(industry_type=industry_type)).order_by('business_name')
         elif business_type:
-            users = UserProfile.objects.filter(business_type=business_type)
+            users = UserProfile.objects.filter(business_type=business_type).order_by('business_name')
         elif industry_type:
-            users = UserProfile.objects.filter(industry_type=industry_type)
+            users = UserProfile.objects.filter(industry_type=industry_type).order_by('business_name')
 
-    industries = Industry.objects.all()
+    industries = Industry.objects.all().order_by('name')
     businesses = [choice[0] for choice in UserProfile._meta.get_field('business_type').choices]
 
     return render(request, 'users/users.html', {

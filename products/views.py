@@ -22,11 +22,11 @@ def product_form(request):
 
 
 def products(request):
-    products = Product.objects.all()
+    products = Product.objects.all().order_by('-created_at')
     return render(request, 'products/products.html', {'products':products})
 
 
 def product(request, uid):
 #    uid = uid.split(':')[1]
-    product = Product.objects.get(uid = uid)
+    product = Product.objects.get(uid = uid).order_by('-created_at')
     return render(request, 'products/product.html', {'product':product})
