@@ -1,0 +1,16 @@
+{% extends 'base/layout.html' %}
+{% block title %}
+Products
+{% endblock %}
+
+{% block body %}
+    <hr>
+    {% if product %}
+        {{product.product_name}}
+        <hr>
+    {% else %}
+        <h1>No Product to Display</h1>
+    {% endif %}
+    
+    <a href="{% url 'products' %}">Back to all products</a>
+{% endblock %}
