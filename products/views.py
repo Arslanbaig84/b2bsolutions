@@ -28,5 +28,5 @@ def products(request):
 
 def product(request, uid):
 #    uid = uid.split(':')[1]
-    product = Product.objects.get(uid = uid).order_by('-created_at')
+    product = Product.objects.get(uid = uid)
     return render(request, 'products/product.html', {'product':product})
