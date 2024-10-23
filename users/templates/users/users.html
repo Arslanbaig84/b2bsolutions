@@ -32,8 +32,10 @@ User List
 </form>
 <hr>
 {% for user in users %}
+    <a href="{% url 'user' user.user.uid %}">
+        {{ user.business_name }} <br>
+    </a>
     {{ user.user.email }} <br>
-    {{ user.business_name }} <br>
     Industries: 
     {% for industry in user.industry_type.all %}
         {{ industry.name }},
