@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'base',
     'users',
     'products',
+    'reviews',
     'sorl.thumbnail'
 ]
 
