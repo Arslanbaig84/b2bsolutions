@@ -2,5 +2,5 @@ from django.urls import path
 from . import views
 
 urlpatterns = [
-    path('', views.review_form, name='review_form')
+    path('<uuid:product_uid>/review', views.review_form, name='review_form')
 ]

@@ -1,20 +1,19 @@
 from django import forms
 from .models import Review
-from django.core.validators import MinValueValidator, MaxValueValidator
 
 class ReviewForm(forms.ModelForm):
-    rating = forms.ChoiceField(
+    rating = forms.IntegerField(
         label= 'Rating',
-        choices = [
+        min_value=1,
+        max_value=5,
+        widget = forms.Select(choices=[
         ('', 'Select a rating'),  # Empty default option
         (1, '1'),
         (2, '2'),
         (3, '3'),
         (4, '4'),
         (5, '5'),
-        ],
-        validators=[MinValueValidator(1), MaxValueValidator(5)],
-        widget=forms.Select,
+        ]),
         required=True
     )
 
