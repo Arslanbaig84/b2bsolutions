@@ -6,7 +6,8 @@ Review
 
 {% block body %}
 <hr>
-    <form action="{% url 'review_form' %}" method="post">
+    Review for {{product.product_name}} by {{product.user.profile.business_name}}
+    <form action="{% url 'review_form' product.uid %}" method="post">
         {% csrf_token %}
         {{form.as_p}}
         <button type="submit">Submit</button>

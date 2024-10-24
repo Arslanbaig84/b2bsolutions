@@ -14,5 +14,5 @@ Products
     
     <a href="{% url 'products' %}">Back to all products</a>
     <br>
-    <a href="{% url 'review_form' %}">Review</a>
+    <a href="{% url 'review_form' product.uid %}">Leave a review for {{product.product_name}}</a>
 {% endblock %}
