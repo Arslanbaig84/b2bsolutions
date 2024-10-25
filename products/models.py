@@ -21,7 +21,7 @@ class Product(BaseModel):
     product_location = models.CharField(max_length=200)
     product_description = models.TextField(max_length=500)
     product_price = models.DecimalField(decimal_places=2, max_digits=10, validators=[MinValueValidator(Decimal('0.01'))])
-    product_images = models.    ImageField(upload_to='products')
+    product_images = models.ImageField(upload_to='products')
     
     def __str__(self) -> str:
         return self.product_name
