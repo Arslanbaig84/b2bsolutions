@@ -8,8 +8,9 @@ Products
     {% if product %}
         {% load thumbnail %}
         {{product.product_name}}
+        <br>
         {{product.product_images.url}}
-
+        <br>
         {% thumbnail product.product_images "50x50" crop="center" as im %}
             <img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}" alt="{{product.product_name}}">
         {% endthumbnail %}
