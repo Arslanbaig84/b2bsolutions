@@ -7,19 +7,23 @@ Products
     <hr>
     {% if product %}
         {% load thumbnail %}
-        {{product.product_name}}
+        <p class="bg-secondary bg-gradient text-light p-1 d-inline-block" style="font-size: 25px;">
+            {{product.product_name}}
+        </p>
         <br>
-        {{product.product_images.url}}
+        <span>
+            {{product.product_images.url}}
+        </span>
         <br>
         {% thumbnail product.product_images "50x50" crop="center" as im %}
-            <img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}" alt="{{product.product_name}}">
+            <img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}" alt="{{product.product_name}}" class="rounded-circle">
         {% endthumbnail %}
         <hr>
     {% else %}
         <h1>No Product to Display</h1>
     {% endif %}
     
-    <a href="{% url 'products' %}">Back to all products</a>
+    <a href="{% url 'products' %}" class="link-primary">Back to all products</a>
     <br>
-    <a href="{% url 'review_form' product.uid %}">Leave a review for {{product.product_name}}</a>
+    <a href="{% url 'review_form' product.uid %}" class="link-primary">Leave a review for {{product.product_name}}</a>
 {% endblock %}
