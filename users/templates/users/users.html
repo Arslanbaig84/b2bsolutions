@@ -31,17 +31,19 @@ User List
     <button type="submit">Submit</button>
 </form>
 <hr>
-{% for user in users %}
-    <div class="bg-light rounded border border-primary border-3 mt-3 p-3">
-        <a href="{% url 'user' user.user.uid %}">
-            {{ user.business_name }} <br>
-        </a>
-        {{ user.user.email }} 
-        <br>    
-        Industries: 
-        {% for industry in user.industry_type.all %}
-            {{ industry.name }},
-        {% endfor %}
-    </div>
-{% endfor %}
+<div class="container d-grid gap-3">
+    {% for user in users %}
+        <div class="bg-light rounded border border-primary border-3 p-3 shadow">
+            <a href="{% url 'user' user.user.uid %}" class="text-decoration-none">
+                {{ user.business_name }} <br>
+            </a>
+            {{ user.user.email }} 
+            <br>    
+            Industries: 
+            {% for industry in user.industry_type.all %}
+                {{ industry.name }},
+            {% endfor %}
+        </div>
+    {% endfor %}
+</div>
 {% endblock %}
