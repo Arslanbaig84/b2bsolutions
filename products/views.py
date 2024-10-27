@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from .forms import ProductForm
 from .models import Product
+from reviews.models import Review
 
 # Create your views here.
 def product_form(request):
@@ -29,4 +30,7 @@ def products(request):
 def product(request, uid):
 #    uid = uid.split(':')[1]
     product = Product.objects.get(uid = uid)
-    return render(request, 'products/product.html', {'product':product})
+    reviews = Review.objects.filter(product=product)
+    for review in reviews:
+        print(review.review)
+    return render(request, 'products/product.html', {'product':product, 'reviews':reviews})
