@@ -22,6 +22,27 @@ Products
     {% else %}
         <h1>No Product to Display</h1>
     {% endif %}
+    <div class="container-fluid">
+        <div class="row">
+            {% if reviews %}
+                {% for review in reviews %}
+                    <div class="col-4">
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title">{{review.user.profile.business_name}}</h5>
+                                <h5 class="card-title">Email : {{review.user.profile}}</h5>
+                                <p class="card-text">Rating : {{review.rating}}/5</p>
+                                <p class="card-text">User Review: {{review.review}}</p>                          
+                                <a href="{% url 'products' %}" class="btn btn-primary">Back to Products</a>
+                            </div>
+                        </div>                      
+                    </div>
+                {% endfor %}
+            {% else %}
+                <p>No reviews for this product</p>
+            {% endif %}
+        </div>
+    </div>
     
     <a href="{% url 'products' %}" class="link-primary">Back to all products</a>
     <br>
