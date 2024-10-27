@@ -7,15 +7,19 @@ Login
 {% block body %}
     <form action="{% url 'login_user' %}" method="post">
         {% csrf_token %}
-        <div>
-            <label for="email">Email</label>
-            <input type="email" name="email">
+        <div class="mb-3 row">
+            <label for="id_email" class="col-sm-2 col-form-label">Email</label>
+            <div class="col-4">
+                <input type="email" name="email" autofocus required class="form-control" id="id_email" placeholder="email@example.com">
+            </div>
         </div>
-        <div>
-            <label for="password">Password</label>
-            <input type="password" name="password">
+        <div class="mb-3 row">
+            <label for="id_password" class="col-sm-2 col-form-label">Password</label>
+            <div class="col-4">
+                <input type="password" class="form-control" id="id_password" name="password">
+            </div>
         </div>
-        <button type="submit">Submit</button>
+        <button type="submit" class="btn btn-primary">Submit</button>
     </form>
     <hr>
     <div>
