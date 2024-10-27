@@ -4,11 +4,44 @@ User Profile
 {% endblock %}
 {% block body %}
 <hr>
-{{profile}}
-<br>
-{{profile.business_name}}
-<br>
-{{profile.ntn}}
+<div class="container-fluid d-grid gap-4 border border-primary border-3 shadow rounded p-3">
+    <div class="row border border-secondary border-1 rounded shadow bg-light">
+        <div class="col border border-secondary border-1 rounded shadow bg-light fs-1">{{profile.business_name}}</div>
+    </div>
+    <div class="row border border-secondary border-1 rounded shadow bg-light">
+        <div class="col-6 border border-secondary border-1 rounded shadow bg-light fs-2">NTN : {{profile.ntn}}</div>
+        <div class="col-6 border border-secondary border-1 rounded shadow bg-light fs-2">Establishment Year : {{profile.establishment_year}}</div>
+    </div>
+    <div class="row border border-secondary border-1 rounded shadow bg-light">
+        <div class="col-6 border border-secondary border-1 rounded shadow bg-light fs-3">
+            Email : {{profile}}
+        </div>
+        <div class="col-3 border border-secondary border-1 rounded shadow bg-light fs-3">
+            Contact : {{profile.contact}}
+        </div>
+        <div class="col-3 border border-secondary border-1 rounded shadow bg-light fs-3">
+            Whatsapp : {{profile.whatsapp}}
+        </div>
+    </div>
+    <div class="row border border-secondary border-1 rounded shadow bg-light">
+        <div class="col-3 border border-secondary border-1 rounded shadow bg-light fs-4">Website : 
+            <a href="#">{{profile.website}}</a>
+        </div>
+        <div class="col border border-secondary border-1 rounded shadow bg-light fs-4">Primary Address : {{profile.address1}}</div>
+        <div class="col border border-secondary border-1 rounded shadow bg-light fs-5">Secondary Address : {{profile.address2}}</div>
+    </div>
+    <div class="row border border-secondary border-1 rounded shadow bg-light">
+        <div class="col-4 border border-secondary border-1 rounded shadow bg-light fs-5">
+            Type of Organization : {{profile.organization_type}}
+        </div>
+        <div class="col-4 border border-secondary border-1 rounded shadow bg-light fs-5">
+            Type of Business : {{profile.business_type}}
+        </div>
+        <div class="col-4 border border-secondary border-1 rounded shadow bg-light fs-5">
+            No of Employees : {{profile.no_of_employees}}
+        </div>
+    </div>
+</div>
 <hr>
-<a href="{% url 'edit_profile' %}">Edit Profile</a>
+<a href="{% url 'edit_profile' %}">Update Profile</a>
 {% endblock %}
