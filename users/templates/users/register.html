@@ -6,7 +6,41 @@ Register
 <hr>
 <form action="{% url 'register' %}" method="post">
     {% csrf_token %}
-    {{form.as_p}}
-    <button type="submit">Submit</button>
+    <div class="container-fluid">
+        <div class="mb-3 row">
+            <label for="id_email" class="col-sm-2 col-form-label">Email</label>
+            <div class="col-4">
+                <input type="email" name="email" autofocus required class="form-control" id="id_email" placeholder="email@example.com">
+            </div>
+        </div>
+        <div class="mb-3 row">
+            <label for="id_first_name" class="col-sm-2 col-form-label">First Name</label>
+            <div class="col-4">
+                <input type="text" name="first_name" class="form-control" id="id_first_name" placeholder="First Name">
+            </div>
+        </div>
+        <div class="mb-3 row">
+            <label for="id_last_name" class="col-sm-2 col-form-label">Last Name</label>
+            <div class="col-4">
+                <input type="text" name="last_name" class="form-control" id="id_last_name" placeholder="Last Name">
+            </div>
+        </div>
+        <div class="mb-3 row">
+            <label for="id_password1" class="col-sm-2 col-form-label">Password</label>
+            <div class="col-4">
+                <input type="password" class="form-control" id="id_password1" name="password1">
+                <span class="helptext"><ul><li>Your password can’t be too similar to your other personal information.</li><li>Your password must contain at least 8 characters.</li><li>Your password can’t be a commonly used password.</li><li>Your password can’t be entirely numeric.</li></ul></span>
+            </div>
+        </div>
+        <div class="mb-3 row">
+            <label for="id_password2" class="col-sm-2 col-form-label">Password Confirmation :</label>
+            <div class="col-4">
+                <input type="password" class="form-control" id="id_password2" name="password2">
+                <span class="helptext">Enter the same password as before, for verification.</span>
+            </div>
+        </div>
+    </div>
+    <button type="submit" class="btn btn-primary">Submit</button>
 </form>
+
 {% endblock %}
