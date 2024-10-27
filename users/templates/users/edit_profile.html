@@ -7,6 +7,6 @@ Edit Profile
 <form action="{% url 'edit_profile' %}" method="post">
     {% csrf_token %}
     {{form.as_p}}
-    <button type="submit">Submit</button>
+    <button class="btn btn-primary" type="submit">Update</button>
 </form>
 {% endblock %}

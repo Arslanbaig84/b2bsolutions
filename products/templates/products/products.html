@@ -7,14 +7,31 @@ Products
     <hr>
     {% if products %}
         {% for product in products %}
-            <a href="{% url 'product' product.uid %}">
-                {{product.product_name}}
-            </a>
-            <hr>
+            <div class="border border-primary border-2 shadow m-3 rounded">
+                <a href="{% url 'product' product.uid %}">
+                    {{product.product_name}}
+                </a>
+                <div class="container-fluid">
+                    <div class="row d-flex align-items-start">
+                        <span class="col-4">Manufacturer : {{product.product_brand}}</span>
+                        <span class="col-4">Model : {{product.product_model}}</span>    
+                    </div>
+                </div>
+                <div class="container-fluid">
+                    <div class="row d-flex align-items-start">
+                        <span class="col-4">Manufacturing Year : {{product.manufacturing_year}}</span>
+                        <span class="col-4">Operational Hours/Kms : {{product.hours_operation}}</span>    
+                    </div>
+                </div>
+                <div class="container-fluid">
+                    <div class="row d-flex align-items-start">
+                        <h3 class="col-4">Price: {{product.product_price}}</h3>
+                    </div>
+                </div>
+            </div>
         {% endfor %}
     {% else %}
         <h1>No Products to Display</h1>
     {% endif %}
-    
     <a href="{% url 'product_form' %}">New Product Ad</a>
 {% endblock %}
