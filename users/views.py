@@ -61,7 +61,7 @@ def login_user(request):
             messages.success(request, 'Login Successful.')
             return redirect('/')
         else:
-            messages(request, 'Invalid username or password')
+            messages.warning(request, 'Invalid username or password')
             return redirect('login_user')
     
     return render(request, 'users/login_user.html')
