@@ -5,6 +5,7 @@ import datetime
 from django.core.exceptions import ValidationError
 import re
 
+current_year = datetime.date.today().year
 
 class CustomUserForm(UserCreationForm):
     class Meta:
@@ -63,7 +64,7 @@ class UserProfileForm(forms.ModelForm):
             'address2':forms.TextInput(attrs={'class':'border-0 col-12', 'maxlength':'200', 'placeholder':'Secondary Address'}),
             'establishment_year':forms.NumberInput(attrs={'class':'border-0 col-12',
                                                           'min':'1900',
-                                                          'max':datetime.date.today().year}),
+                                                          'max':current_year}),
                                                           'title':'Enter a year between 1900 and current year'
         }
 
@@ -103,7 +104,6 @@ class UserProfileForm(forms.ModelForm):
                 raise ValidationError("Year must be between 1900 and the current year.")
         return year
 
-
     def clean_contact(self):
         contact = self.cleaned_data.get('contact')
         if contact:
@@ -113,3 +113,36 @@ class UserProfileForm(forms.ModelForm):
             if qs.exists():
                 raise ValidationError("Contact no already in use.")
         return contact
+
+    def clean_establishment_year(self):
+        year = self.cleaned_data.get('establishment_year')
+        if year >= 1900 and year <= current_year:
+            return year
+        else:
+            raise ValidationError("Year should be between 1900 and current year")
+        
+    def clean_organization_type(self):
+        organization_type = self.cleaned_data.get('organization_type')
+
+        # Access the valid choices directly from the field
+        valid_choices = dict(self._meta.model._meta.get_field('organization_type').choices)
+
+        # Check if the submitted value is in the valid choices
+        if organization_type not in valid_choices:
+            raise forms.ValidationError(f"{organization_type} is not a valid choice.")
+
+        return organization_type
+
+    def clean_business_type(self):
+        business_type = self.cleaned_data.get('business_type')
+        valid_choices = dict(self._meta.model._meta.get_field('business_type').choices)
+        if business_type not in valid_choices:
+            raise forms.ValidationError(f'{business_type} is an INVALID CHOICE')
+        return business_type
+        
+    def clean_no_of_employees(self):
+        employees = self.cleaned_data.get('no_of_employees')
+        valid_choices = dict(self._meta.model._meta.get_field('no_of_employees').choices)
+        if employees not in valid_choices:
+            raise forms.ValidationError(f'{employees} is an INVALID CHOICE')
+        return employees
