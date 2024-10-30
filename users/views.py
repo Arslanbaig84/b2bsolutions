@@ -99,7 +99,7 @@ def edit_profile(request):
             print(form.errors)
             for field in form:
                 for error in field.errors:
-                    messages.error(request, f'{field.label}:{error}')
+                    messages.error(request, f'{field.label} : {error}')
                     return redirect('edit_profile')
     
     form = UserProfileForm(instance=profile)
