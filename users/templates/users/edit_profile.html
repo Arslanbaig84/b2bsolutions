@@ -70,6 +70,7 @@ Edit Profile
                 <div class="form-control">
                     {{ form.ntn }}
                 </div>
+                <p>{{form.ntn.help_text}}</p>
             </div>
         </div>
         <div class="mb-3 row shadow">
@@ -118,6 +119,7 @@ Edit Profile
                 <div class="form-control">
                     {{ form.establishment_year }}
                 </div>
+                <p>Year must be between 1900 and current year.</p>
             </div>
         </div>
     </div>
