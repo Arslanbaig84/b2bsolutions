@@ -70,7 +70,6 @@ class UserProfileForm(forms.ModelForm):
         error_messages = {
             'ntn': {
                 'invalid': "NTN must follow the format '1234567-8'.",
-                'unique': "This NTN is already in use.",
             }
         }
     
@@ -105,4 +104,12 @@ class UserProfileForm(forms.ModelForm):
         return year
 
 
-    
+    def clean_contact(self):
+        contact = self.cleaned_data.get('contact')
+        if contact:
+            qs = UserProfile.objects.filter(contact=contact)
+            if self.instance.pk:
+                qs = qs.exclude(pk=self.instance.pk)
+            if qs.exists():
+                raise ValidationError("Contact no already in use.")
+        return contact
