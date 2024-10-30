@@ -82,6 +82,11 @@ def edit_profile(request):
     profile = request.user.profile
     if request.method == 'POST':
         form = UserProfileForm(request.POST, instance=profile)
+#        contact = request.POST.get('contact')
+#        ToDO implementation of same contact exclusion of current user
+#        if UserProfile.objects.filter(contact=contact):
+#            messages.error('Userprofile with this contact already exists')
+#            return render('edit_profile')
         if form.is_valid():
             form.save()
         else:
