@@ -2,6 +2,8 @@ from .models import CustomUser, UserProfile, Industry
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
 import datetime
+from django.core.exceptions import ValidationError
+import re
 
 
 class CustomUserForm(UserCreationForm):
@@ -64,3 +66,43 @@ class UserProfileForm(forms.ModelForm):
                                                           'max':datetime.date.today().year}),
                                                           'title':'Enter a year between 1900 and current year'
         }
+
+        error_messages = {
+            'ntn': {
+                'invalid': "NTN must follow the format '1234567-8'.",
+                'unique': "This NTN is already in use.",
+            }
+        }
+    
+    def clean_ntn(self):
+        ntn = self.cleaned_data.get('ntn')
+
+        # Step 1: Format Validation with Regex
+        if ntn:
+            ntn_pattern = r'^\d{7}-\d{1}$'
+            if not re.match(ntn_pattern, ntn):
+                raise ValidationError("NTN must follow the format '1234567-8'.")
+
+        # Step 2: Uniqueness Check
+        if ntn:
+            qs = UserProfile.objects.filter(ntn=ntn)
+            if self.instance.pk:
+                qs = qs.exclude(pk=self.instance.pk)
+            if qs.exists():
+                raise ValidationError("This NTN is already in use.")
+
+        # Step 3: Additional Validation (e.g., disallowed values)
+        if ntn and ntn.startswith('0000000'):
+            raise ValidationError("NTN cannot start with '0000000'.")
+
+        return ntn
+
+    def clean_establishment_year(self):
+        year = self.cleaned_data.get('establishment_year')
+        if year:
+            if year < 1900 or year > datetime.date.today().year:
+                raise ValidationError("Year must be between 1900 and the current year.")
+        return year
+
+
+    
