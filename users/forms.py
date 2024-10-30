@@ -33,6 +33,21 @@ class UserProfileForm(forms.ModelForm):
             'establishment_year':'Year must be between 1900 and current year.'
         }
 
+        labels = {
+            'business_name':'Business Name', 
+            'organization_type':'Organization Type', 
+            'business_type':'Business Type', 
+            'no_of_employees':'No of Employees', 
+            'industry_type':'Industry Type', 
+            'ntn':'NTN', 
+            'contact':'Contact', 
+            'whatsapp':'Whatsapp', 
+            'website':'Website URL', 
+            'address1':'Address1', 
+            'address2':'Address2', 
+            'establishment_year':'Year of Establishment'
+        }
+
         widgets = {
             'business_name':forms.TextInput(attrs={'class':'border-0 col-12', 'autofocus':'true', 'maxlength':'200', 'placeholder':'Business Name'}),
             'organization_type':forms.Select(attrs={'class':'border-0 col-12'}),
