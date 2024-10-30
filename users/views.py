@@ -49,8 +49,9 @@ def activate(request, uidb64, token):
     else:
         messages.info(request, 'Please activate your account by visiting your email(Remember to check spam).')
         return redirect('/')
-    
 
+
+@login_required(login_url="/users/login_user/")
 def login_user(request):
     if request.method == 'POST':
         email = request.POST.get('email')
@@ -67,17 +68,20 @@ def login_user(request):
     return render(request, 'users/login_user.html')
 
 
+@login_required(login_url="/users/login_user/")
 def logout_user(request):
     logout(request)
     messages.success(request, 'Logout Successful')
     return redirect('/')
 
 
+@login_required(login_url="/users/login_user/")
 def userprofile(request):
     profile = request.user.profile
     return render(request, 'users/userprofile.html', {'profile':profile})
 
 
+@login_required(login_url="/users/login_user/")
 def edit_profile(request):
     profile = request.user.profile
     if request.method == 'POST':
@@ -89,14 +93,20 @@ def edit_profile(request):
 #            return render('edit_profile')
         if form.is_valid():
             form.save()
+            messages.success(request, 'Profile updates successfully')
+            return redirect('userprofile')
         else:
             print(form.errors)
-        return redirect('userprofile')
+            for field in form:
+                for error in field.errors:
+                    messages.error(request, f'{field.label}:{error}')
+                    return redirect('edit_profile')
     
     form = UserProfileForm(instance=profile)
     return render(request, 'users/edit_profile.html', {'form':form})
 
 
+@login_required(login_url="/users/login_user/")
 def users(request):
 
     users = UserProfile.objects.all().order_by('business_name')
@@ -122,6 +132,7 @@ def users(request):
     })
 
 
+@login_required(login_url="/users/login_user/")
 def user(request, uid):
     user = CustomUser.objects.get(uid = uid)
     industries = user.profile.industry_type.all()
