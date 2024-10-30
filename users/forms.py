@@ -146,3 +146,13 @@ class UserProfileForm(forms.ModelForm):
         if employees not in valid_choices:
             raise forms.ValidationError(f'{employees} is an INVALID CHOICE')
         return employees
+    
+    def clean_industry_type(self):
+        industries = list(self.cleaned_data.get('industry_type'))
+        if not industries:
+            raise forms.ValidationError(f'You must select at least one Industry')
+        valid_choices = list(Industry.objects.values_list('id', flat=True))
+        for industry in industries:
+            if industry.id not in valid_choices:
+                raise forms.ValidationError(f'{industry} is an INVALID CHOICE')
+        return industries
