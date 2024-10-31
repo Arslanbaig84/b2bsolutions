@@ -73,7 +73,7 @@ class UserProfileForm(forms.ModelForm):
                 'invalid': "NTN must follow the format '1234567-8'.",
             }
         }
-    
+        
     def clean_ntn(self):
         ntn = self.cleaned_data.get('ntn')
 
@@ -156,3 +156,12 @@ class UserProfileForm(forms.ModelForm):
             if industry.id not in valid_choices:
                 raise forms.ValidationError(f'{industry} is an INVALID CHOICE')
         return industries
+
+"""
+applying custom css to label in backend
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        # Add custom label class
+        for field_name, field in self.fields.items():
+            field.label_tag(attrs={'class': 'custom-label-class'})
+"""

@@ -6,7 +6,18 @@ New Product Ad
 {% block body %}
     <form action="{% url 'product_form' %}" method="post" enctype="multipart/form-data">
         {% csrf_token %}
-        {{form.as_p}}
-        <button type="submit">Submit</button>
+        <div class="container-fluid">
+            {% for field in form %}
+                <div class="mb-3 row shadow">
+                    {{field.label_tag}}
+                    <div class="col-3">
+                        <div class="form-control">
+                            {{field}}
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
     </form>
 {% endblock %}
