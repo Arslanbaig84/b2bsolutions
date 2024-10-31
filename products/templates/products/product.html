@@ -11,12 +11,19 @@ Products
             {{product.product_name}}
         </p>
         <br>
-        <span>
-            {{product.product_images.url}}
-        </span>
-        <br>
-        {% thumbnail product.product_images "50x50" crop="center" as im %}
-            <img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}" alt="{{product.product_name}}" class="rounded-circle">
+        <div class="bg-light container-fluid shadow">
+            <div class="row">
+                <p class="col-3">Brand: {{product.product_brand}}</p>
+                <p class="col-3">Model: {{product.product_model}}</p>
+                <p class="col-3">Year of Manufacturing: {{product.manufacturing_year}}</p>
+                <p class="col-3">Opertional Hours: {{product.hours_operation}}</p>
+                <p class="col-3">Current Locations: {{product.product_location}}</p>
+                <p class="col-3">Price: ${{product.product_price}}</p>
+                <p class="col-12">Description: {{product.product_description}}</p>
+            </div>
+        </div>
+        {% thumbnail product.product_images "100x100" crop="center" as im %}
+            <img src="{{ im.url }}" width="{{ im.width }}" height="{{ im.height }}" alt="{{product.product_name}}" class="rounded-circle bg-light">
         {% endthumbnail %}
         <hr>
     {% else %}
