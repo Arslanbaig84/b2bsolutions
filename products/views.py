@@ -6,10 +6,10 @@ from reviews.models import Review
 # Create your views here.
 def product_form(request):
     user = request.user
-    print(user)
+#    print(user)
     if request.method == 'POST':
         form = ProductForm(request.POST, request.FILES)
-        print(form)
+#        print(form)
         if form.is_valid():
             product = form.save(commit=False)
             product.user = user
