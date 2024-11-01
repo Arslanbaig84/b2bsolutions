@@ -25,5 +25,13 @@ def review_form(request, product_uid):
 
 
 def contact_us(request):
+    if request.method == 'POST':
+        form = ContactForm(request.POST)
+        if form.is_valid():
+            contact = form.save(commit=False)
+            contact.user = request.user
+            contact.save()
+            messages.info(request, 'Feedback submitted')
+            return redirect('/')
     form = ContactForm()
     return render(request, 'reviews/contact_us.html', {'form':form})
