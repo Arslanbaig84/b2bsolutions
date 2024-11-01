@@ -16,3 +16,8 @@ class Review(BaseModel):
 
     def __str__(self) -> str:
         return f'{self.rating} for {self.product} by {self.user}'
+    
+
+class Contact(BaseModel):
+    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name='contact')
+    text = models.TextField()

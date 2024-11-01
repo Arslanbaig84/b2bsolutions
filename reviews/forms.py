@@ -1,5 +1,5 @@
 from django import forms
-from .models import Review
+from .models import Review, Contact
 
 class ReviewForm(forms.ModelForm):
     rating = forms.IntegerField(
@@ -20,3 +20,15 @@ class ReviewForm(forms.ModelForm):
     class Meta:
         model = Review
         fields = ['rating', 'review']
+
+
+class ContactForm(forms.ModelForm):
+    class Meta:
+        model = Contact
+        fields = ['text']
+
+        labels = {'text':'Suggestion'}
+
+        widgets = {
+            'text':forms.Textarea(attrs={'class':'col-12 border border-1 border-primary', 'placeholder':'We would love to hear your suggestions.'})
+        }
