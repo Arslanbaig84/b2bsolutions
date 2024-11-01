@@ -21,3 +21,6 @@ class Review(BaseModel):
 class Contact(BaseModel):
     user = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name='contact')
     text = models.TextField()
+
+    def __str__(self) -> str:
+        return self.text
