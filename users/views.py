@@ -51,7 +51,6 @@ def activate(request, uidb64, token):
         return redirect('/')
 
 
-@login_required(login_url="/users/login_user/")
 def login_user(request):
     if request.method == 'POST':
         email = request.POST.get('email')
